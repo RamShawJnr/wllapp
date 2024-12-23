@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fixture Details</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<h1>Fixture Details</h1>
+    <a href="fixtures.htm" class="close-button">&#10006;</a>
+
+    <div id="fixture-info" class="fixture-details"></div>
+    <div id="kickoff-time"></div>
+
+    <script>
+        // Get match name and kickoff time from URL
+        const params = new URLSearchParams(window.location.search);
+        const match = params.get('match');
+        const kickoffTime = params.get('kickoff');
+
+        // Map team names to their logo paths
+        const teamLogos = {
+            "Beddington Cyclones": "images/cyclo.png",
+            "Wandle Thunder": "images/thund.png",
+        };
+
+        // Display match details
+        const fixtureInfo = document.getElementById('fixture-info');
+        if (match) {
+            const teams = match.split(" - "); // Split team names from the match string
+
+            // Render each team with its logo and name
+            fixtureInfo.innerHTML = teams
+                .map(team => `
+                    <div class="team-container">
+                        <div class="team-logo" style="background-image: url('${teamLogos[team.trim()] || ""}');"></div>
+                        <div class="team-name">${team}</div>
+                    </div>
+                `)
+                .join("");
+
+        } else {
+            fixtureInfo.innerHTML = "<p>No fixture selected.</p>";
+        }
+
+        // Display kickoff time
+        const kickoffDiv = document.getElementById('kickoff-time');
+        kickoffDiv.innerHTML = kickoffTime 
+            ? `<p>Kick off time: <strong>${kickoffTime}</strong></p>`
+            : "<p>No kickoff time available.</p>";
+    </script>
+
+</body>
+</html>

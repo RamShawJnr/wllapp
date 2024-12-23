@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallington Little League</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Top Bar with Dropdown -->
+<div class="top-bar">
+    <select class="dropdown" id="divisionDropdown">
+        <option value="bantams" selected>Bantams</option>
+        <option value="juniors">Juniors</option>
+        <option value="inters">Inters</option>
+    </select>
+</div>
+
+<!-- Clickable Fixture -->
+<a href="fixture-details.html?match=Beddington Cyclones - Wandle Thunder&kickoff=9:00" class="fixture-link">
+    <div class="fixture inters">
+        <div class="teams-container">
+            <div class="team">
+                <div class="team-logo" style="background-image: url('images/cyclo.png');"></div>
+                Beddington Cyclones (Green & White)
+            </div>
+            <div class="divider"></div>
+            <div class="team">
+                <div class="team-logo" style="background-image: url('images/thund.png');"></div>
+                Wandle Thunder (Yellow & Black)
+            </div>
+        </div>
+        <div class="kickoff-time">Kickoff time: 09:00</div>
+    </div>
+</a>
+
+<!-- Bottom Menu -->
+    <div class="bottom-menu">
+        <a href="notifications.html" class="menu-item">
+            <i class="fas fa-bell"></i> <!-- Notifications icon -->
+        <a href="fixtures.htm" class="menu-item">
+            <i class="fas fa-table"></i> <!-- Scoreboard icon -->
+        </a>
+        <a href="home.htm" class="menu-item">
+            <i class="fas fa-home"></i> <!-- Home icon -->
+        </a>
+        <a href="table.html" class="menu-item">
+            <i class="fas fa-list-ol"></i> <!-- Profile icon -->
+        </a>
+        <a href="profile.html" class="menu-item">
+            <i class="fas fa-user"></i> <!-- Settings icon -->
+        </a>
+    </div>
+
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdown = document.getElementById("divisionDropdown");
+    const fixtures = document.querySelectorAll(".fixture");
+
+    function filterFixtures() {
+        const selectedDivision = dropdown.value;
+        fixtures.forEach(fixture => {
+            fixture.style.display = fixture.classList.contains(selectedDivision) ? "flex" : "none";
+        });
+        localStorage.setItem("dropdownValue", selectedDivision);
+    }
+
+    const savedValue = localStorage.getItem("dropdownValue");
+    if (savedValue) {
+        dropdown.value = savedValue;
+    }
+    filterFixtures();
+
+    dropdown.addEventListener("change", filterFixtures);
+});
+</script>
+
+</body>
+</html>
